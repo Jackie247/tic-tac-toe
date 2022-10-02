@@ -1,0 +1,51 @@
+// mixin classes //
+
+// css reset //
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Noto Sans','Times New Roman', Times, sans-serif;
+}
+body{
+    background-color:var(--primary);
+}
+li{
+    list-style-type: none;
+}
+button{
+    background-color: #fff;
+}
+// base styles - mobile //
+:root{
+
+}
+header{
+
+}
+main{
+
+}
+footer{
+
+}
+
+// small table styles //
+@media screen and (min-width:620px){
+
+}
+
+/* large tablet and laptops */
+@media screen and (min-width:960px){
+
+}
+
+/* desktop styles */
+@media screen and (min-width:1200px){
+
+}
+
+/* large desktop styles */
+@media screen and (min-width:1500px){
+
+}
