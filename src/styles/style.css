@@ -17,10 +17,37 @@ button {
   background-color: #fff;
 }
 
-.grid {
+header {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+main {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+main .grid {
   display: grid;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: repeat(3, 100px);
+  align-items: center;
+  justify-items: center;
+}
+
+footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 /* large tablet and laptops */

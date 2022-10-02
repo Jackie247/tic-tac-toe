@@ -1,5 +1,10 @@
 // mixin classes //
-
+@mixin flexCenterRow(){
+    display:flex;
+    flex-flow:row;
+    justify-content: center;
+    align-items: center;
+}
 // css reset //
 *{
     box-sizing:border-box;
@@ -21,18 +26,26 @@ button{
 
 }
 header{
-
+    @include flexCenterRow();
+    margin: 20px 0;
 }
 main{
+    @include flexCenterRow();
+    padding: 20px;
+    .grid{
+        display:grid;
+        grid-template-columns: repeat(3,100px);
+        grid-template-rows: repeat(3,100px);
+        align-items:center;
+        justify-items: center;
+    }
+}
 
-}
-.grid{
-    display:grid;
-    grid-template-columns: repeat(3,100px);
-    grid-template-rows: repeat(3,100px);
-}
 footer{
-
+    @include flexCenterRow();
+    position:fixed;
+    bottom:0;
+    width:100%;
 }
 
 // small table styles //
