@@ -2,10 +2,11 @@ const GameController = () => {
     // While game is not won, take turns to play
     // Determine winner once 3 in a row
     const {createBoard} = GameBoard();
-
     const startGame = () => {
         createBoard();
-
+        const player = Player();
+        player.updateSide("O");
+        player.makeMove();
     }
     return {startGame};
 };
@@ -37,15 +38,20 @@ const GameBoard = () => {
     }
 };
 const Player = () => {
+    let side = "X";
     const {grid} = GameBoard();
     let children = grid.querySelectorAll(".grid-item");
     const makeMove = () => {
         children.forEach((elem) => {
-            elem.addEventListener('click',() => {elem.textContent = 'X';})
+            elem.addEventListener('click',() => {elem.textContent = side;})
         })
+    }
+    const updateSide = (newSide) => {
+        side = newSide;
     }
     return{
         makeMove,
+        updateSide,
     }
 }
 const Enemy = () => {
@@ -64,5 +70,4 @@ const Enemy = () => {
 }
 const game = GameController();
 game.startGame();
-const player = Player();
-player.makeMove();
+
