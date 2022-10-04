@@ -13,7 +13,6 @@
     font-family:'Noto Sans','Times New Roman', Times, sans-serif;
 }
 body{
-    background-color:var(--primary);
 }
 li{
     list-style-type: none;
@@ -23,11 +22,15 @@ button{
 }
 // base styles - mobile //
 :root{
-
+    --primary: #94a3b8;
+    --secondary:#e2e8f0;
 }
 header{
     @include flexCenterRow();
-    margin: 20px 0;
+    background-color: var(--primary);
+    .page-title{
+        margin: 20px 0;
+    }
 }
 main{
     padding: 20px;
@@ -50,9 +53,13 @@ main{
 
 footer{
     @include flexCenterRow();
+    background-color: var(--primary);
     position:fixed;
     bottom:0;
     width:100%;
+    .footer-strip{
+        margin:10px;
+    }
 }
 
 // small table styles //
