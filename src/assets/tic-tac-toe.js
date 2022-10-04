@@ -1,49 +1,68 @@
 const GameController = () => {
+    // While game is not won, take turns to play
+    // Determine winner once 3 in a row
     const {createBoard} = GameBoard();
+
     const startGame = () => {
         createBoard();
+
     }
     return {startGame};
 };
 const GameBoard = () => {
     // tic tac toe grid is displayed from an array
-    let board = ['x','o','x','o','x','o','x','o','o'];
+    let board = ['','','','','','','','',''];
     // parent elem for the child elems from array
-    let grid = document.getElementById('ttt-grid');
+    let grid = document.querySelector('.grid');
+    // create html elems for each array element to display on screen
+    const createBoard = () => {
+        board.forEach(()=>{
+            let square = document.createElement("div");
+            square.classList.add('grid-item');
+            grid.appendChild(square);
+        })
+    }
+    let children = grid.querySelectorAll(".grid-item");
     const clearBoard = () => {
         // called after every win/loss
         while(board.length > 0){
             board.shift();
         }
     }
-    const createBoard = () => {
-        // create html elems for each array element
-        // to display on screen
-        for(let i = 0; i < board.length; i++){
-            let square = document.createElement("div"); 
-            square.classList.add('grid-item');
-            square.textContent = board[i];
-            grid.appendChild(square);
-        }
-    }
     return {
         clearBoard,
-        createBoard
+        createBoard,
+        grid,
+        children,
     }
 };
-
 const Player = () => {
-    let score = 0;
+    const {grid} = GameBoard();
+    let children = grid.querySelectorAll(".grid-item");
     const makeMove = () => {
-
+        children.forEach((elem) => {
+            elem.addEventListener('click',() => {elem.textContent = 'X';})
+        })
+    }
+    return{
+        makeMove,
     }
 }
-
-const displayController = (() => {
-    const declareWinner = () => {
-
+const Enemy = () => {
+    const {grid} = GameBoard();
+    let children = grid.querySelectorAll(".grid-item");
+    const makeMove = () => {
+        children.forEach((item) => {
+            item.addEventListener('click',()=> {
+                item.textContent = 'X';
+            })
+        });
     }
-})();
-
+    return{
+        makeMove,
+    }
+}
 const game = GameController();
 game.startGame();
+const player = Player();
+player.makeMove();
