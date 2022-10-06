@@ -89,21 +89,29 @@ const DisplayController = (() => {
     // DOM Elements
     let children = grid.querySelectorAll(".grid-item");
     let restartBtn = dcoument.getElementById('restart-btn');
-    var arr = Array.prototype.slice.call(children); // Now array
-    // for each grid item, if clicked on, pass the index to game controller function
-    arr.forEach((elem) =>{
-        elemIndex = indexOf(elem);
-        elem.addEventListener('click',(e) => {
+
+    for(let i = 0; i < children.length; i++){
+        children[i].index = i;
+        children[i].addEventListener('click',(e) => {
             if(GameController.getGameFinished() || e.target.textContent !== "") return;
-            GameController.handleRound(parseInt(elemIndex));
-        })
-    })
+            GameController.handleRound(parseInt(i));
+            updateDisplay();
+        });
+    }
+
     restartBtn.addEventListener('click', () => {
         GameBoard.clearBoard();
         GameController.resetGame();
+        updateDisplay();
     })
 
+    const updateDisplay = () => {
+        for(let i = 0; i < children.length; i++){
+            children[i].textContent = GameBoard.getBoardIndex(i);
+        }
+    }
 })();
+
 const Player = (side) => {
     this.side = side;
     const getSide = () => {return side;}
@@ -111,7 +119,4 @@ const Player = (side) => {
         getSide,
     }
 }
-
-const game = GameController();
-game.startGame();
 
