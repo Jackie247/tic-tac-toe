@@ -25,53 +25,56 @@ const GameController = () => {
     }
     return {startGame};
 };
-const GameBoard = () => {
+const GameBoard = (() => {
+    // gameboard module to create grid elements and functions to 
+    // return and set a board index (grid)
     // tic tac toe grid is displayed from an array
     let board = ['','','','','','','','',''];
-    let grid = document.querySelector('.grid');
-    // CREATE THE GRID ELEMENTS
-    const createBoard = () => {
-        board.forEach(()=>{
-            let square = document.createElement("div");
-            square.classList.add('grid-item');
-            grid.appendChild(square);
-        })
-        // MAKE EACH GRID ELEMENT CLICKABLE
-        let children = grid.querySelectorAll(".grid-item");
-        children.forEach((elem) => {
-            elem.addEventListener('click',(turn) => {
-                if(turn == 'X'){
-                    elem.textContent == 'X';
-                }
-                else if(turn == 'O'){
-                    elem.textContent == 'O';
-                }
-            })
-        })
+    board.forEach(()=>{
+        let square = document.createElement("div");
+        square.classList.add('grid-item');
+        grid.appendChild(square);
+    })
+    const setBoardIndex = (index,sign) => {
+        if(index > board.length){return;}
+        board[index] = sign;
+    }
+    const getBoardIndex = (index) => {
+        if(index > board.length){return;}
+        return board[index];
     }
     const clearBoard = () => {
         // called after every win/loss
-        while(board.length > 0){
-            board.shift();
-        }
+        board.forEach((item)=>{item = "";})
     }
     return {
         clearBoard,
-        createBoard,
-        grid,
-        children,
+        setBoardIndex,
+        getBoardIndex,
     }
-};
-const Player = () => {
-    let side = "X";
-    const {grid} = GameBoard();
+})();
+
+const DisplayController = () => {
+    const {createBoard} = GameBoard();
+    let grid = document.querySelector('.grid');
+    // MAKE EACH GRID ELEMENT CLICKABLE
     let children = grid.querySelectorAll(".grid-item");
-    const updateSide = (newSide) => {
-        side = newSide;
-    }
+    children.forEach((elem) => {
+        elem.addEventListener('click',(turn) => {
+            if(turn == 'X'){
+                elem.textContent == 'X';
+            }
+            else if(turn == 'O'){
+                elem.textContent == 'O';
+            }
+        })
+    })
+}
+const Player = (side) => {
+    this.side = side;
+    const getSide = () => {return side;}
     return{
-        makeMove,
-        updateSide,
+        getSide,
     }
 }
 const game = GameController();
