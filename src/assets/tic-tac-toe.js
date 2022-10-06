@@ -86,20 +86,23 @@ const GameBoard = (() => {
     }
 })();
 const DisplayController = (() => {
-    const {createBoard} = GameBoard();
-    let grid = document.querySelector('.grid');
-    // MAKE EACH GRID ELEMENT CLICKABLE
+    // DOM Elements
     let children = grid.querySelectorAll(".grid-item");
-    children.forEach((elem) => {
-        elem.addEventListener('click',(turn) => {
-            if(turn == 'X'){
-                elem.textContent == 'X';
-            }
-            else if(turn == 'O'){
-                elem.textContent == 'O';
-            }
+    let restartBtn = dcoument.getElementById('restart-btn');
+    var arr = Array.prototype.slice.call(children); // Now array
+    // for each grid item, if clicked on, pass the index to game controller function
+    arr.forEach((elem) =>{
+        elemIndex = indexOf(elem);
+        elem.addEventListener('click',(e) => {
+            if(GameController.getGameFinished() || e.target.textContent !== "") return;
+            GameController.handleRound(parseInt(elemIndex));
         })
     })
+    restartBtn.addEventListener('click', () => {
+        GameBoard.clearBoard();
+        GameController.resetGame();
+    })
+
 })();
 const Player = (side) => {
     this.side = side;
