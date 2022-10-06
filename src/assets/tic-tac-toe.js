@@ -2,11 +2,10 @@
 const GameController = (() => {
     // While game is not won, take turns to play
     // Determine winner once 3 in a row
-
     // create players for game
     const playerX = Player("X");
     const playerO = Player("O");
-    let gameWon = false;
+    let gameOver = false;
     let round = 1;
     // win conditions to determine winner
     const winConditions = [
@@ -21,12 +20,27 @@ const GameController = (() => {
     ]
     const startGame = (boardIndex) => {
         GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
-        const player = Player();
-        player.updateSide("O");
-        player.makeMove();
-        if(gameWon == true){
-            gameBoard.clearBoard();
+        if(hasGameWinner(boardIndex)){
+            gameOver = true;
+            return;
         }
+        if(round === 9){
+            gameOver = true;
+        }
+    }
+    const hasGameWinner = (boardIndex) => {
+        // gives the possible win conditions, if user has X in index 0,
+        // possible win combinations are [0,1,2],[0,3,6],[0,4,8]
+        let winCombinations = winConditions.filter((combination) => {
+            combination.includes(boardIndex);
+        })
+        // from these combinations, check if they are all the same player
+        let winningCombination = winCombinations.some((possibleCombinations) => {
+            possibleCombinations.every((boardIndex) => {
+                GameBoard.getBoardIndex(boardIndex) === getCurrentPlayer();
+            });
+        });
+        return winningCombination;
     }
     const getCurrentPlayer = () => {return round % 2 === 1 ? playerX.getSide() : playerO.getSide()}
     const getGameWon = () => {return gameWon;}
