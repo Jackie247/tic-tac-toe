@@ -1,9 +1,14 @@
 'use strict';
-const GameController = () => {
+const GameController = (() => {
     // While game is not won, take turns to play
     // Determine winner once 3 in a row
-    const gameBoard = GameBoard();
+
+    // create players for game
+    const playerX = Player("X");
+    const playerO = Player("O");
     let gameWon = false;
+    let round = 1;
+    // win conditions to determine winner
     const winConditions = [
         [0,1,2],
         [3,4,5],
@@ -14,8 +19,8 @@ const GameController = () => {
         [0,4,8],
         [2,4,6],
     ]
-    const startGame = () => {
-        gameBoard.createBoard();
+    const startGame = (boardIndex) => {
+        GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
         const player = Player();
         player.updateSide("O");
         player.makeMove();
@@ -23,8 +28,18 @@ const GameController = () => {
             gameBoard.clearBoard();
         }
     }
-    return {startGame};
-};
+    const getCurrentPlayer = () => {return round % 2 === 1 ? playerX.getSide() : playerO.getSide()}
+    const getGameWon = () => {return gameWon;}
+    const resetGame = () => {
+        round = 1;
+        gameWon = false;
+    }
+    return {
+        startGame,
+        getGameWon,
+        resetGame,
+    };
+})();
 const GameBoard = (() => {
     // gameboard module to create grid elements and functions to 
     // return and set a board index (grid)
@@ -36,15 +51,16 @@ const GameBoard = (() => {
         grid.appendChild(square);
     })
     const setBoardIndex = (index,sign) => {
+        // call to change a board element at index
         if(index > board.length){return;}
         board[index] = sign;
     }
     const getBoardIndex = (index) => {
+        // gets the index of element
         if(index > board.length){return;}
         return board[index];
     }
     const clearBoard = () => {
-        // called after every win/loss
         board.forEach((item)=>{item = "";})
     }
     return {
@@ -53,8 +69,7 @@ const GameBoard = (() => {
         getBoardIndex,
     }
 })();
-
-const DisplayController = () => {
+const DisplayController = (() => {
     const {createBoard} = GameBoard();
     let grid = document.querySelector('.grid');
     // MAKE EACH GRID ELEMENT CLICKABLE
@@ -69,7 +84,7 @@ const DisplayController = () => {
             }
         })
     })
-}
+})();
 const Player = (side) => {
     this.side = side;
     const getSide = () => {return side;}
@@ -77,6 +92,7 @@ const Player = (side) => {
         getSide,
     }
 }
+
 const game = GameController();
 game.startGame();
 
