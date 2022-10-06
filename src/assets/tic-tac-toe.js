@@ -1,3 +1,4 @@
+'use strict';
 const GameController = () => {
     // While game is not won, take turns to play
     // Determine winner once 3 in a row
