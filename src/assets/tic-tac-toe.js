@@ -5,7 +5,7 @@ const GameController = (() => {
     // create players for game
     const playerX = Player("X");
     const playerO = Player("O");
-    let gameOver = false;
+    let gameFinished = false;
     let round = 1;
     // win conditions to determine winner
     const winConditions = [
@@ -18,15 +18,17 @@ const GameController = (() => {
         [0,4,8],
         [2,4,6],
     ]
-    const startGame = (boardIndex) => {
+    const handleRound = (boardIndex) => {
         GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
         if(hasGameWinner(boardIndex)){
-            gameOver = true;
+            gameFinished = true;
             return;
         }
         if(round === 9){
-            gameOver = true;
+            gameFinished = true;
+            return;
         }
+        round++;
     }
     const hasGameWinner = (boardIndex) => {
         // gives the possible win conditions, if user has X in index 0,
@@ -43,14 +45,14 @@ const GameController = (() => {
         return winningCombination;
     }
     const getCurrentPlayer = () => {return round % 2 === 1 ? playerX.getSide() : playerO.getSide()}
-    const getGameWon = () => {return gameWon;}
+    const getGameFinished = () => {return gameFinished;}
     const resetGame = () => {
         round = 1;
         gameWon = false;
     }
     return {
-        startGame,
-        getGameWon,
+        handleRound,
+        getGameFinished,
         resetGame,
     };
 })();
