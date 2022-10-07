@@ -89,7 +89,7 @@ const DisplayController = (() => {
     // DOM Elements
     let children = grid.querySelectorAll(".grid-item");
     let restartBtn = dcoument.getElementById('restart-btn');
-
+    let messageElem = document.getElementById('message');
     for(let i = 0; i < children.length; i++){
         children[i].index = i;
         children[i].addEventListener('click',(e) => {
@@ -109,6 +109,23 @@ const DisplayController = (() => {
         for(let i = 0; i < children.length; i++){
             children[i].textContent = GameBoard.getBoardIndex(i);
         }
+    }
+
+    const setResult = (winner) => {
+        if(winner === 'Draw'){
+            setMessage('Its a draw');
+        }
+        else{
+            setMessage(`Player ${winner} has won`);
+        }
+    }
+
+    const setMessage = (message) => {
+        messageElem.textContent = message;
+    }
+    return {
+        setMessage,
+        setResult,
     }
 })();
 
