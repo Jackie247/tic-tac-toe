@@ -1,4 +1,11 @@
 'use strict';
+const Player = (side) => {
+    this.side = side;
+    const getSide = () => {return side;}
+    return{
+        getSide,
+    }
+}
 const GameController = (() => {
     // While game is not won, take turns to play
     // Determine winner once 3 in a row
@@ -48,7 +55,7 @@ const GameController = (() => {
     const getGameFinished = () => {return gameFinished;}
     const resetGame = () => {
         round = 1;
-        gameWon = false;
+        gameFinished = false;
     }
     return {
         handleRound,
@@ -61,6 +68,7 @@ const GameBoard = (() => {
     // return and set a board index (grid)
     // tic tac toe grid is displayed from an array
     let board = ['','','','','','','','',''];
+    let grid = document.getElementById('ttt-grid');
     board.forEach(()=>{
         let square = document.createElement("div");
         square.classList.add('grid-item');
@@ -87,8 +95,9 @@ const GameBoard = (() => {
 })();
 const DisplayController = (() => {
     // DOM Elements
+    let grid = document.getElementById('ttt-grid');
     let children = grid.querySelectorAll(".grid-item");
-    let restartBtn = dcoument.getElementById('restart-btn');
+    let restartBtn = document.getElementById('restart-btn');
     let messageElem = document.getElementById('message');
     for(let i = 0; i < children.length; i++){
         children[i].index = i;
@@ -129,11 +138,4 @@ const DisplayController = (() => {
     }
 })();
 
-const Player = (side) => {
-    this.side = side;
-    const getSide = () => {return side;}
-    return{
-        getSide,
-    }
-}
 
