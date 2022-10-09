@@ -34,6 +34,10 @@ header{
 }
 main{
     padding: 20px;
+    .message{
+        @include flexCenterRow();
+        
+    }
     .grid{
         display:grid;
         grid-template-columns: repeat(3,minmax(75px,1fr));
@@ -52,9 +56,6 @@ main{
         .grid-item:nth-child(3n),.grid-item:nth-child(n){
             border-bottom: 1px solid black;
         }
-    }
-    .message{
-        @include flexCenterRow();
     }
     .buttons{
         @include flexCenterRow();

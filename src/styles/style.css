@@ -32,6 +32,12 @@ header .page-title {
 main {
   padding: 20px;
 }
+main .message {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
 main .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(75px, 1fr));
@@ -50,12 +56,6 @@ main .grid .grid-item:nth-child(n-1) {
 }
 main .grid .grid-item:nth-child(3n), main .grid .grid-item:nth-child(n) {
   border-bottom: 1px solid black;
-}
-main .message {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
 }
 main .buttons {
   display: flex;

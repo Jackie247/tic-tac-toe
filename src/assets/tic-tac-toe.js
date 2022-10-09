@@ -6,63 +6,6 @@ const Player = (side) => {
         getSide,
     }
 }
-const GameController = (() => {
-    // While game is not won, take turns to play
-    // Determine winner once 3 in a row
-    // create players for game
-    const playerX = Player("X");
-    const playerO = Player("O");
-    let gameFinished = false;
-    let round = 1;
-    // win conditions to determine winner
-    const winConditions = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6],
-    ]
-    const handleRound = (boardIndex) => {
-        GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
-        if(hasGameWinner(boardIndex)){
-            gameFinished = true;
-            return;
-        }
-        if(round === 9){
-            gameFinished = true;
-            return;
-        }
-        round++;
-    }
-    const hasGameWinner = (boardIndex) => {
-        // gives the possible win conditions, if user has X in index 0,
-        // possible win combinations are [0,1,2],[0,3,6],[0,4,8]
-        let winCombinations = winConditions.filter((combination) => {
-            combination.includes(boardIndex);
-        })
-        // from these combinations, check if they are all the same player
-        let winningCombination = winCombinations.some((possibleCombinations) => {
-            possibleCombinations.every((boardIndex) => {
-                GameBoard.getBoardIndex(boardIndex) === getCurrentPlayer();
-            });
-        });
-        return winningCombination;
-    }
-    const getCurrentPlayer = () => {return round % 2 === 1 ? playerX.getSide() : playerO.getSide()}
-    const getGameFinished = () => {return gameFinished;}
-    const resetGame = () => {
-        round = 1;
-        gameFinished = false;
-    }
-    return {
-        handleRound,
-        getGameFinished,
-        resetGame,
-    };
-})();
 const GameBoard = (() => {
     // gameboard module to create grid elements and functions to 
     // return and set a board index (grid)
@@ -137,5 +80,65 @@ const DisplayController = (() => {
         setResult,
     }
 })();
+const GameController = (() => {
+    // While game is not won, take turns to play
+    // Determine winner once 3 in a row
+    // create players for game
+    const playerX = Player("X");
+    const playerO = Player("O");
+    let gameFinished = false;
+    let round = 1;
+    // win conditions to determine winner
+    const winConditions = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6],
+    ]
+    const handleRound = (boardIndex) => {
+        GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
+        if(hasGameWinner(boardIndex)){
+            DisplayController.setMessage(getCurrentPlayer());
+            gameFinished = true;
+            return;
+        }
+        if(round === 9){
+            DisplayController.setMessage('Draw');
+            gameFinished = true;
+            return;
+        }
+        round++;
+        DisplayController.setMessage(
+            `Player ${getCurrentPlayer()}'s turn`
+        );
+    }
+    const hasGameWinner = (boardIndex) => {
+        // gives the possible win conditions, if user has X in index 0,
+        // possible win combinations are [0,1,2],[0,3,6],[0,4,8]
+        // from these combinations, check if they are all the same player
+        return winConditions.filter((combination) => 
+        combination.includes(boardIndex)).some((possibleCombinations) => 
+            possibleCombinations.every((index) => 
+                GameBoard.getBoardIndex(index) === getCurrentPlayer())
+        )
+    }
+    const getCurrentPlayer = () => {return round % 2 === 1 ? playerX.getSide() : playerO.getSide()}
+    const getGameFinished = () => {return gameFinished;}
+    const resetGame = () => {
+        round = 1;
+        gameFinished = false;
+    }
+    return {
+        handleRound,
+        getGameFinished,
+        resetGame,
+    };
+})();
+
+
 
 
