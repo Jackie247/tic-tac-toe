@@ -30,7 +30,9 @@ header .page-title {
 }
 
 main {
+  min-height: 100vh;
   padding: 20px;
+  margin-bottom: -75px;
 }
 main .message {
   display: flex;
@@ -86,54 +88,68 @@ footer {
   justify-content: center;
   align-items: center;
   background-color: var(--primary);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  height: 75px;
 }
 footer .footer-strip {
   margin: 10px;
 }
 
 @media screen and (min-width: 620px) {
+  main {
+    padding: 0;
+  }
   main .grid {
-    margin: 2em 5em;
+    position: relative;
+    left: 25%;
+    margin: 0;
+    height: 50%;
+    width: 50%;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
     grid-template-rows: repeat(3, minmax(150px, 1fr));
   }
   main .grid .grid-item {
-    font-size: 6em;
+    font-size: 4em;
   }
 }
 /* large tablet and laptops */
 @media screen and (min-width: 960px) {
+  main {
+    padding: 0;
+  }
   main .grid {
-    margin: 2em 7em;
+    position: relative;
+    left: 25%;
+    margin: 0;
+    height: 50%;
+    width: 50%;
     grid-template-columns: repeat(3, minmax(150px, 1fr));
-    grid-template-rows: repeat(3, minmax(200px, 1fr));
+    grid-template-rows: repeat(3, minmax(150px, 1fr));
   }
   main .grid .grid-item {
-    font-size: 6em;
+    font-size: 4em;
   }
 }
 /* desktop styles */
 @media screen and (min-width: 1200px) {
+  main {
+    padding: 0;
+  }
+  main .message {
+    margin-top: 1em;
+  }
   main .grid {
-    margin: 3em 10em;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    grid-template-rows: repeat(3, minmax(200px, 1fr));
+    position: relative;
+    left: 25%;
+    margin-top: 2em;
+    height: 50%;
+    width: 50%;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    grid-template-rows: repeat(3, minmax(150px, 1fr));
   }
   main .grid .grid-item {
-    font-size: 8em;
+    font-size: 4em;
   }
-}
-/* large desktop styles */
-@media screen and (min-width: 1500px) {
-  main .grid {
-    margin: 5em 20em;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    grid-template-rows: repeat(3, minmax(200px, 1fr));
-  }
-  main .grid .grid-item {
-    font-size: 8em;
+  main .buttons {
+    margin-top: 2em;
   }
 }/*# sourceMappingURL=style.css.map */
