@@ -37,12 +37,15 @@ main .message {
   flex-flow: row;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
+  text-align: center;
 }
 main .grid {
+  margin: 2em 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(75px, 1fr));
   grid-template-rows: repeat(3, minmax(75px, 1fr));
-  border: 1px solid black;
+  border: 2px solid black;
 }
 main .grid .grid-item {
   background-color: #fff;
@@ -51,10 +54,16 @@ main .grid .grid-item {
   justify-content: center;
   font-size: 3rem;
 }
-main .grid .grid-item:nth-child(n-1) {
+main .grid .grid-item:nth-child(n):nth-child(-n+2) {
   border-right: 1px solid black;
 }
-main .grid .grid-item:nth-child(3n), main .grid .grid-item:nth-child(n) {
+main .grid .grid-item:nth-child(n+4):nth-child(-n+5) {
+  border-right: 1px solid black;
+}
+main .grid .grid-item:nth-child(n+7):nth-child(-n+8) {
+  border-right: 1px solid black;
+}
+main .grid .grid-item:nth-child(n):nth-child(-n+6) {
   border-bottom: 1px solid black;
 }
 main .buttons {
@@ -62,6 +71,13 @@ main .buttons {
   flex-flow: row;
   justify-content: center;
   align-items: center;
+}
+main .buttons button {
+  font-size: 2rem;
+  border: none;
+  border: 1px solid black;
+  border-radius: 1px;
+  padding: 0 10px;
 }
 
 footer {
@@ -78,6 +94,46 @@ footer .footer-strip {
   margin: 10px;
 }
 
+@media screen and (min-width: 620px) {
+  main .grid {
+    margin: 2em 5em;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    grid-template-rows: repeat(3, minmax(150px, 1fr));
+  }
+  main .grid .grid-item {
+    font-size: 6em;
+  }
+}
 /* large tablet and laptops */
+@media screen and (min-width: 960px) {
+  main .grid {
+    margin: 2em 7em;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    grid-template-rows: repeat(3, minmax(200px, 1fr));
+  }
+  main .grid .grid-item {
+    font-size: 6em;
+  }
+}
 /* desktop styles */
-/* large desktop styles *//*# sourceMappingURL=style.css.map */
+@media screen and (min-width: 1200px) {
+  main .grid {
+    margin: 3em 10em;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-rows: repeat(3, minmax(200px, 1fr));
+  }
+  main .grid .grid-item {
+    font-size: 8em;
+  }
+}
+/* large desktop styles */
+@media screen and (min-width: 1500px) {
+  main .grid {
+    margin: 5em 20em;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-rows: repeat(3, minmax(200px, 1fr));
+  }
+  main .grid .grid-item {
+    font-size: 8em;
+  }
+}/*# sourceMappingURL=style.css.map */

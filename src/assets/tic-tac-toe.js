@@ -28,7 +28,9 @@ const GameBoard = (() => {
         return board[index];
     }
     const clearBoard = () => {
-        board.forEach((item)=>{item = "";})
+        for(let i = 0; i < board.length; i++){
+            board[i] = "";
+        }
     }
     return {
         clearBoard,
@@ -55,6 +57,7 @@ const DisplayController = (() => {
         GameBoard.clearBoard();
         GameController.resetGame();
         updateDisplay();
+        setMessage("Player X's turn");
     })
 
     const updateDisplay = () => {
@@ -102,7 +105,7 @@ const GameController = (() => {
     const handleRound = (boardIndex) => {
         GameBoard.setBoardIndex(boardIndex, getCurrentPlayer());
         if(hasGameWinner(boardIndex)){
-            DisplayController.setMessage(getCurrentPlayer());
+            DisplayController.setMessage(`${getCurrentPlayer()} has won the game!`);
             gameFinished = true;
             return;
         }
