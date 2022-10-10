@@ -12,8 +12,6 @@
     padding:0;
     font-family:'Noto Sans','Times New Roman', Times, sans-serif;
 }
-body{
-}
 li{
     list-style-type: none;
 }
@@ -24,6 +22,8 @@ button{
 :root{
     --primary: #94a3b8;
     --secondary:#e2e8f0;
+    --bg:#f5f5f4;
+    --hover:#e2e8f0;
 }
 header{
     @include flexCenterRow();
@@ -31,18 +31,26 @@ header{
     .page-title{
         margin: 20px 0;
     }
+    .page-title:hover{
+        cursor:default;
+    }
+}
+body{
+    background: var(--bg);
 }
 main{
-    min-height: 100vh;
-    padding: 20px;
-    margin-bottom:-75px;
+    padding:0 1em;
     .message{
         @include flexCenterRow();
+        margin-top:25px;
+        margin-bottom:25px;
         font-size: 2rem;
         text-align: center;
     }
+    .message:hover{
+        cursor:default;
+    }
     .grid{
-        margin:2em 0;
         display:grid;
         grid-template-columns: repeat(3,minmax(75px,1fr));
         grid-template-rows: repeat(3,minmax(75px,1fr));
@@ -53,6 +61,9 @@ main{
             align-items: center;
             justify-content: center;
             font-size:3rem;
+        }
+        .grid-item:hover{
+            background-color:var(--hover);
         }
         .grid-item:nth-child(n):nth-child(-n+2){
             border-right: 1px solid black;
@@ -69,6 +80,7 @@ main{
     }
     .buttons{
         @include flexCenterRow();
+        margin-top:2em;
         button{
             font-size:2rem;
             border:none;
@@ -76,32 +88,40 @@ main{
             border-radius: 1px;
             padding:0 10px;
         }
+        button:hover{
+            cursor: pointer;
+        }
     }
 }
 
 footer{
     @include flexCenterRow();
+    position:fixed;
+    bottom:0;
+    width:100%;
     background-color: var(--primary);
-    height:75px;
+    height:50px;
     .footer-strip{
-        margin:10px;
+        margin:5px;
+        p:hover{
+            cursor:default;
+        }
     }
 }
 // small table styles //
 @media screen and (min-width:620px){
     main{
-        padding:0;
+        padding: 0 5em;
         .grid{
             position: relative;
-            left:25%;
-            margin:0;
-            height:50%;
-            width:50%;
             grid-template-columns: repeat(3,minmax(150px,1fr));
             grid-template-rows: repeat(3,minmax(150px,1fr));
             .grid-item{
                 font-size:4em;
             }
+        }
+        .buttons{
+            margin-bottom:2em;
         }   
     }
 }
@@ -126,7 +146,7 @@ footer{
 /* desktop styles */
 @media screen and (min-width:1200px){
     main{
-        padding:0;
+        padding:0 20em;
         .message{
             margin-top:1em;
         }
@@ -143,7 +163,8 @@ footer{
             }
         }   
         .buttons{
-            margin-top:2em;
+            margin:2em;
+            margin-bottom: 4em;
         }
     }
 }
